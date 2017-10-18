@@ -1,0 +1,225 @@
+﻿<Window x:Class="GTFSApplication.DatabaseManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTFSApplication"
+        mc:Ignorable="d"
+        Title="Manažér databáz" Height="800" Width="1079" Closed="DatabaseManagerClosed">
+
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+
+        <DockPanel HorizontalAlignment="Stretch">
+            <ToolBarTray DockPanel.Dock="Top" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" IsLocked="True">
+                <ToolBar Background="{x:Null}"  OverflowMode="Never" Style="{DynamicResource ToolBarStyle1}" Margin="185,0,-185,0">
+
+                    <Button ToolTip="Vytvorí novú databázu." VerticalAlignment="Stretch" Margin="10,00,10,0" Click="CreateNewDatabase">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="/GTFSApplication;component/Resources/document_text.png" Height="50" Width="50" />
+                            <TextBlock Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Nová databáza</TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+
+                    <Button Name="Previous" ToolTip="Cut selection to Windows Clipboard." VerticalAlignment="Stretch" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/GTFSApplication;component/Resources/Left.png" Height="50" Width="50" />
+                        </StackPanel>
+                    </Button>
+
+                    <ComboBox x:Name="comboBox" VerticalAlignment="Stretch" Width="170" Margin="5,0,5,0" FontSize="16" FontFamily="Segoe UI Light" Height="50" SelectionChanged="DatabaseSelectionChanged" ItemsSource="{Binding DatabaseList}" FontWeight="Bold"  />
+
+
+
+
+                    <Button Name="Next" ToolTip="Cut selection to Windows Clipboard." VerticalAlignment="Stretch"  >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/GTFSApplication;component/Resources/Right.png" Height="50" Width="50" />
+                        </StackPanel>
+                    </Button>
+
+
+
+
+                    <Button ToolTip="Cut selection to Windows Clipboard." VerticalAlignment="Stretch" Margin="10,00,10,0" Name="taskbutton" Click="DatabaseUpdate" >
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Name="taskbuttonImage" Source="/GTFSApplication;component/Resources/refresh.png" Height="50" Width="50" />
+                            <TextBlock Name="taskbuttonText" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Aktualizovať databázu</TextBlock>
+
+                        </StackPanel>
+
+                    </Button>
+
+
+
+
+
+
+                </ToolBar>
+
+            </ToolBarTray>
+
+
+
+        </DockPanel>
+
+
+        <StackPanel Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="39,72,0,0" Text="Obsah textových súborov" Height="48" FontFamily="Segoe UI Light" FontSize="20" HorizontalAlignment="Left" Width="500" />
+                <TextBlock Margin="59,72,0,0" Text="Obsah databázy" Height="48" FontFamily="Segoe UI Light" FontSize="20" HorizontalAlignment="Left" Width="475" />
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+
+
+                <DataGrid x:Name="dataGridFiles" HorizontalAlignment="Left" Margin="37,0,0,0" IsManipulationEnabled="True" ColumnWidth="*" SelectionUnit="Cell" VerticalAlignment="Top"
+                  AutoGenerateColumns="False" Width="500" FontSize="14" Visibility="Visible"  RowHeight="30"
+                  CanUserSortColumns = "False" CanUserAddRows = "False" RowHeaderWidth="0"  
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding DBFilesEntityNames}" IsReadOnly="True" Header="Súbor"/>
+                        <DataGridTextColumn Binding="{Binding DBFilesEntityRows}" IsReadOnly="True" Header="Počet riadkov"/>
+
+
+
+
+
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <StackPanel Orientation="Vertical" Margin="20,0,0,0 ">
+
+                    <DataGrid x:Name="dataGridDatabase" HorizontalAlignment="Left" Margin="37,0,0,0" IsManipulationEnabled="True" ColumnWidth="*" SelectionUnit="Cell" VerticalAlignment="Top"
+                  AutoGenerateColumns="False" Width="460" FontSize="14" Visibility="Visible"  RowHeight="30"
+                  CanUserSortColumns = "False" CanUserAddRows = "False" RowHeaderWidth="0"  
+                  CanUserResizeRows = "False"
+                  CanUserResizeColumns = "False" ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding DBTablesNames,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Tabuľka"/>
+                            <DataGridTextColumn Binding="{Binding DBTablesRows,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Počet riadkov"  />
+
+                            <DataGridTemplateColumn  IsReadOnly="True" Header="Stav">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+
+
+                                            <ProgressBar Name="ProgressBar" Value="{Binding Path=ProgressValue, Mode=TwoWay}" Minimum="0" Maximum="100"></ProgressBar>
+                                            <TextBlock Text="{Binding ElementName=ProgressBar, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+
+
+
+
+
+
+
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+
+                    <TextBlock Name="lastModified" Text="Naposledy aktualizované:" FontSize="16" FontFamily="Segoe UI Light"  Margin="35,0,0,0"  Width="457" />
+
+
+
+                    <!--
+                    <Grid>
+                        <DataGrid Name="dgr" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Progress">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ProgressBar Value="{Binding Path=ProgressValue, Mode=TwoWay}" Minimum="0" Maximum="100" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Update">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="Button_Click" Content="Update"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                 
+                    
+                    -->
+
+                </StackPanel>
+
+
+            </StackPanel>
+
+            <!--
+            <StackPanel Orientation="Horizontal" Margin="37,10,0,0" HorizontalAlignment="Left" Width="997" >
+                <TextBlock Text="Stav" FontSize="20" FontFamily="Segoe UI Light" TextAlignment="Center"/>
+
+                <Button x:Name="dad" ToolTip="Cut selection to Windows Clipboard." VerticalAlignment="Stretch" Margin="290,0,0,0" Style="{StaticResource ValidateImageStyle}" BorderThickness="0" Width="144">
+                    <StackPanel Orientation="Horizontal" Width="150">
+                        <Image Source="/GTFSApplication;component/Resources/validate.png" Height="50" Width="50" />
+                        <TextBlock Text="Skontrolovať" Height="16" Margin="10,0,0,0" FontSize="14" Width="89"/>
+                    </StackPanel> 
+                 
+                    
+               </Button>
+                
+            
+                <ProgressBar Name="progressBar1" VerticalAlignment="Top" Height="100" Width="200" Margin="0,25,0,0"/>
+                <Button Content="Start" Click="button1_Click" Margin="10,0,0,0" Width="101"></Button>
+                <Button Content="Abort" Click="button2_Click" Margin="10,0,0,0" Width="101"></Button>
+                <ProgressBar Name="progressBar2" VerticalAlignment="Top" Height="100" Width="200" Margin="50,25,0,0"/>
+                <ProgressBar Name="progressBar3" VerticalAlignment="Top" Height="100" Width="200" Margin="50,25,0,0"/>
+
+
+            </StackPanel>
+            <StackPanel>
+                <ScrollViewer Height="203" Margin="40,0,0,0" HorizontalAlignment="Left" Width="496">
+                    <StackPanel>
+                        <TextBlock Text="test" FontWeight="Bold" Name="DBValidationTextBlock" />
+
+                    </StackPanel>
+
+
+                </ScrollViewer>
+
+            </StackPanel>
+-->
+        </StackPanel>
+
+
+
+    </Grid>
+
+
+
+
+
+
+</Window>

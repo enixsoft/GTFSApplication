@@ -1,0 +1,147 @@
+﻿<Window x:Class="GTFSApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:local="clr-namespace:GTFSApplication"
+        mc:Ignorable="d"
+        Title="Hlavné okno" Height="774" Width="1100" >
+    <Grid >
+
+        <StackPanel Orientation="Vertical" Margin="10,0,0,0" HorizontalAlignment="Left" Width="170">
+            <TextBlock Text="Editor súborov" Margin="21,20,19,20" FontSize="20"   FontFamily="Segoe UI Light"/>
+            <Button x:Name="buttonAgency" Content="Agency" Click="ClickMe" Height="40" Margin="0,0,0,0" FontSize="16" Background="{x:Null}" />
+            <Button x:Name="buttonCalendar" Content="Calendar" Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+            <Button x:Name="buttonCalendarDates" Content="CalendarDates" Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+            <Button x:Name="buttonRoutes"  Content="Routes" Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+            <Button x:Name="buttonTrips" Content="Trips" Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+            <Button x:Name="buttonStops" Content="Stops"  Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+            <Button x:Name="buttonStopTimes" Content="StopTimes"  Click="ClickMe" Height="40" Margin="0,12,0,0" FontSize="16" Background="{x:Null}"/>
+
+        </StackPanel>
+        <!--  <Border Margin="0,0,0,0"
+                BorderBrush="Gray"
+                Background="LightGray"
+                BorderThickness="1" Height="1002" VerticalAlignment="Bottom"
+                />
+            -->
+
+
+
+        <StackPanel Margin="200,0,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" Height="392" VerticalAlignment="Top">
+            <TextBlock Text="Vyhľadávanie" Height="45" Margin="369,20,0,0" FontSize="30" HorizontalAlignment="Left" Width="185" FontFamily="Segoe UI Light" />
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Zdroj dát" FontSize="24" HorizontalAlignment="Left" Margin="20,0,0,0" Width="195" FontFamily="Segoe UI Light"/>
+                <ComboBox Width="266" FontSize="24" x:Name="comboBox" Height="40" SelectionChanged="comboBox_SelectionChanged"/>
+                <Button x:Name="buttonDatabaseManager" Content="Manažér databáz" Click="ClickMe" Margin="00,0,0,0" FontSize="16" Background="{x:Null}" Height="40"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Height="48">
+                <TextBlock Text="Odkiaľ" Margin="20,0,0,0" FontSize="24" HorizontalAlignment="Left" Width="195" FontFamily="Segoe UI Light"/>
+                <toolkit:AutoCompleteBox  x:Name="searchFrom"   Width="266" FontSize="24" Height="48" ItemsSource="{Binding Stops}"  SelectedItem="{Binding SelectedStop, Mode=TwoWay}"/>
+                <TextBlock Text="Zástavka nebola nájdená." x:Name="searchFromError" Margin="20,0,0,0" Foreground="Red" FontSize="20" Visibility="Hidden" Width="390" FontFamily="Segoe UI Light"/>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Height="50">
+                <TextBlock Text="Kam" Margin="20,1,0,0" FontSize="24" HorizontalAlignment="Left" Width="195" FontFamily="Segoe UI Light"/>
+                <toolkit:AutoCompleteBox  x:Name="searchTo"   Width="266" FontSize="24" Height="48" ItemsSource="{Binding Stops}"  SelectedItem="{Binding SelectedStop, Mode=TwoWay}"/>
+                <Button Margin="1,0,0,0" Style="{StaticResource SwapImageStyle}" Width="70" Click="swap_Click" BorderThickness="1" Cursor="Hand" />
+                <TextBlock Text="Zástavka nebola nájdená." x:Name="searchToError" Margin="20,0,0,0" Foreground="Red" FontSize="20" Visibility="Hidden" Width="273" FontFamily="Segoe UI Light"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="59" Margin="0,10,0,0">
+
+                <TextBlock Text="Dátum a čas" Margin="20,0,0,10" FontSize="24" HorizontalAlignment="Left" Width="195" FontFamily="Segoe UI Light"/>
+
+                <DatePicker Width="266" FontSize="24" x:Name="searchDatePicker" Margin="0,0,0,10" Height="48" Style="{DynamicResource DatePickerStyle1}" />
+                <TextBox x:Name="searchTimeTextBox" FontSize="32" Width="90" Height="48" FontFamily="Segoe UI Light" Margin="0,0,0,11" Style="{StaticResource TextBoxStyleWatermark}" Tag="Teraz" 
+                         PreviewTextInput="NumberValidationTextBox" MaxLength="5" Keyboard.PreviewKeyDown="SpaceBarTextBox" TextChanged="OnTextChanged" LostFocus="searchTimeTextBox_LostFocus" Cursor="IBeam"  />                
+                <StackPanel Orientation="Vertical" Width="45"/>
+                <TextBlock Text="Nesprávne zadaný čas." x:Name="searchTimeError" Margin="10,0,0,11" Foreground="Red" FontSize="16" Visibility="Hidden" Width="246" FontFamily="Segoe UI Light" Height="38" VerticalAlignment="Bottom"/>
+
+
+            </StackPanel>
+            <TextBlock Text="Vyhľadávanie nenašlo žiadne výsledky." x:Name="searchError" Margin="270,0,0,0" Foreground="Red" FontSize="22" Visibility="Hidden" FontFamily="Segoe UI Light" Height="30" VerticalAlignment="Bottom"/>
+
+            <StackPanel Orientation="Horizontal" Height="54" Margin="0,10,0,0">
+                <Button Margin="160,0,0,0" Visibility="Hidden" x:Name="previousButton" Content="Predchádzajúce" Background="#FF9ECAF5" FontSize="24" FontWeight="Bold"  Width="185" Click="prevSearch_Click" Height="44" VerticalAlignment="Bottom" />
+                <Button Margin="16,0,0,0" Name="searchButton" Content="VYHĽADAŤ" Background="#FF9ECAF5" FontSize="32" FontWeight="Bold"  Width="171" Click="Search_Click" Cursor="Hand" Style="{DynamicResource SearchButtonStyle1}"  />                
+                <Button Margin="16,0,0,0" x:Name="nextButton" Visibility="Hidden" Content="Nasledujúce" Background="#FF9ECAF5" FontSize="24" FontWeight="Bold"  Width="161" Height="44" VerticalAlignment="Bottom" Click="nextSearch_Click"  />
+            </StackPanel>
+            <Border Margin="0,5,0,0"
+                BorderBrush="Gray"
+                Background="LightGray"
+                BorderThickness="1"  
+                />
+        </StackPanel>
+        <StackPanel Margin="200,421,0,0">
+            <StackPanel Orientation="Vertical">
+
+                <DataGrid x:Name="dataGridResult" HorizontalAlignment="Left" Margin="0,0,0,0" IsManipulationEnabled="False"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False"  FontSize="20" Visibility="Hidden"  RowHeight="40" MaxWidth="800" SelectionUnit="Cell"
+                  CanUserSortColumns = "False" CanUserAddRows = "False" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False" GridLinesVisibility="Horizontal" 
+            CanUserResizeColumns = "True" >
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding resultDepartureTime}" IsReadOnly="True" Header="Čas" FontWeight="Bold"/>
+                        <DataGridTextColumn Binding="{Binding resultDate}" IsReadOnly="True" Header="Dátum" />
+                        <DataGridTextColumn Binding="{Binding resultStop}" IsReadOnly="True" Header="Odkiaľ"/>
+                        <DataGridTextColumn Binding="{Binding resultNextStop}" IsReadOnly="True" Header="Kam "/>
+                        <DataGridTextColumn Binding="{Binding resultDepartureTime}" IsReadOnly="True" Header="Odchod"/>
+                        <DataGridTextColumn Binding="{Binding resultArrivalTime}" IsReadOnly="True" Header="Príchod "/>
+                        <DataGridTemplateColumn  IsReadOnly="True" Header="Spoj ">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding resultTripNumber}"  BorderThickness="0" Tag="{Binding resultTripNumber}"  Click="GetFullTrip"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="BorderBrush">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Transparent"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground"
+                            Value="{DynamicResource
+                                   {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Transparent"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+
+                </DataGrid>
+
+
+
+
+
+
+            </StackPanel>
+
+
+        </StackPanel>
+        <Image Name="loadingImage" Source="/GTFSApplication;component/Resources/sandClock.png" Margin="613,465,0,162" HorizontalAlignment="Left" Width="70" Visibility="Hidden"/>
+        <TextBlock Visibility="Hidden" Text="PageNumberDebug" Name="page" FontSize="24" Margin="47,465,959,243"></TextBlock>
+
+    </Grid>
+
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+
+        </Style>
+    </Window.Resources>
+</Window>

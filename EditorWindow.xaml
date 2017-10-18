@@ -1,0 +1,762 @@
+﻿<Window x:Class="GTFSApplication.EditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTFSApplication"
+        mc:Ignorable="d"
+        Title="Editor" Height="800" Width="1079" Closed="EditorClosed">
+
+
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <DockPanel>
+            <ToolBarTray DockPanel.Dock="Top" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" IsLocked="True">
+                <ToolBar Background="{x:Null}"  OverflowMode="Never" Style="{DynamicResource ToolBarStyle1}" Margin="0,0,0,0" >
+
+
+
+                    <Button Name="Previous" ToolTip="Predchádzajúca entita." VerticalAlignment="Stretch" Click="ChangeEntity" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/GTFSApplication;component/Resources/Left.png" Height="50" Width="50" />
+                        </StackPanel>
+                    </Button>
+
+                    <ComboBox x:Name="comboBox" VerticalAlignment="Stretch" Width="121" Margin="10,00,10,0" SelectionChanged="ComboBox_SelectionChanged" FontSize="16" FontFamily="Segoe UI Light" Height="50">
+
+                        <ComboBoxItem>Agency</ComboBoxItem>
+                        <ComboBoxItem>Calendar</ComboBoxItem>
+                        <ComboBoxItem>Calendar Dates</ComboBoxItem>
+                        <ComboBoxItem>Routes</ComboBoxItem>
+                        <ComboBoxItem>Trips</ComboBoxItem>
+                        <ComboBoxItem>Stops</ComboBoxItem>
+                        <ComboBoxItem>Stop Times</ComboBoxItem>
+                    </ComboBox>
+
+                    <Button Click="ChangeEntity" Name="Next" ToolTip="Nasledujúca entita." VerticalAlignment="Stretch"  >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/GTFSApplication;component/Resources/Right.png" Height="50" Width="50" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button ToolTip="Opäť načíta dáta zo súboru práve zobrazenej entity." Click="Refresh" VerticalAlignment="Stretch" Margin="30,00,10,0" >
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="/GTFSApplication;component/Resources/refresh.png" Height="50" Width="50" />
+                            <TextBlock Margin="3,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Načítať znova</TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+
+                    <Button ToolTip="Uloží dáta práve zobrazenej entity do súboru." Click="SaveToFile" VerticalAlignment="Stretch" Margin="30,00,10,0" >
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="/GTFSApplication;component/Resources/Save.png" Height="50" Width="50" />
+                            <TextBlock Margin="3,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Uložiť</TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+
+                    <Button ToolTip="Uloží dáta všetkých entít do súborov." Click="SaveToFileAll" VerticalAlignment="Stretch" Margin="30,00,10,0" >
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="/GTFSApplication;component/Resources/save.png" Height="50" Width="50" />
+                            <TextBlock Margin="3,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Uložiť všetko</TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+
+                    <Button Click="AddRow" ToolTip="Pridá ďalší riadok na poslednú stránku." VerticalAlignment="Stretch" Margin="30,00,10,0" >
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="/GTFSApplication;component/Resources/AddRow.png" Height="50" Width="50" />
+                            <TextBlock Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Light">Pridať riadok</TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+
+                  
+
+
+
+
+                   
+
+
+                </ToolBar>
+
+            </ToolBarTray>
+
+
+        </DockPanel>
+
+
+
+
+
+        <DataGrid x:Name="dataGridAgency" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True" ColumnWidth="*" SelectionUnit="Cell" VerticalAlignment="Top"
+                  AutoGenerateColumns="False" Width="500" FontSize="14" Visibility="Hidden"  RowHeight="30"
+                  CanUserSortColumns = "False" CanUserAddRows = "False" RowHeaderWidth="0" HeadersVisibility="None" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding AgencyKategoria}" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding AgencyData}"/>
+
+
+
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="dataGridCalendar" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" MinWidth="500" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+            <DataGrid.Columns>
+                    <DataGridTextColumn Header="serviceID" Binding="{Binding Path = CalendarServiceid, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+
+                <DataGridTemplateColumn Header="Pondelok" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarMondayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Utorok" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarTuesdayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Streda" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarWednesdayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Štvrtok" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarThursdayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Piatok" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarFridayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Sobota" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarSaturdayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Nedeľa" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarSundayStyle, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Začiatok platnosti" MinWidth="120" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CalendarStartDate,StringFormat={}{0:dd.MM.yyyy}}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding CalendarStartDate}" Keyboard.PreviewKeyUp="datagridCalendar_DatePicker_Enter" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Koniec platnosti" MinWidth="120" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CalendarEndDate,StringFormat={}{0:dd.MM.yyyy}}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding CalendarEndDate}" Keyboard.PreviewKeyUp="datagridCalendar_DatePicker_Enter" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="CalendarDeleteRow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+
+
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="CalendarPagePanel">
+
+
+            <Button Click="PreviousPage" Tag="1" ToolTip="Predchádzajúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+            <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+            <TextBlock Height="18" Text="0" Name="CalendarCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="0" Name="CalendarMaxPages" Margin="2,0,0,0" FontSize="16"/>
+            <Button Click="NextPage" Tag="1" ToolTip="Nasledujúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+
+        </StackPanel>
+
+
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="dataGridCalendarDates" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+            <DataGrid.Columns>
+                
+                
+                    <DataGridTemplateColumn Header="serviceID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox  Name="CalendarDatesComboBox" SelectedValue="{Binding Path=CalendarDatesServiceid, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CalendarDatesServiceIdFromCalendar}"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>                      
+                    </DataGridTemplateColumn>
+
+                 
+                        
+
+
+                    <DataGridTemplateColumn Header="Dátum" MinWidth="120" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CalendarDatesDate,StringFormat={}{0:dd.MM.yyyy}}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding CalendarDatesDate}" Keyboard.PreviewKeyUp="datagridCalendarDates_DatePicker_Enter" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Typ výnimky" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = CalendarDatesExceptionType, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="CalendarDatesDeleteRow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+
+
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="CalendarDatesPagePanel">
+
+
+            <Button Click="PreviousPage" Tag="2" ToolTip="Predchádzajúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+            <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+            <TextBlock Height="18" Text="0" Name="CalendarDatesCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="0" Name="CalendarDatesMaxPages" Margin="2,0,0,0" FontSize="16"/>
+            <Button Click="NextPage" Tag="2" ToolTip="Nasledujúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+
+        </StackPanel>
+
+
+        <StackPanel Orientation="Vertical">
+        <DataGrid x:Name="dataGridRoutes" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="routeID" Binding="{Binding Routeid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Krátky názov" Binding="{Binding RouteShortName }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Dlhý názov" Binding="{Binding RouteLongName }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="Vozidlo" MinWidth="60" CellStyle="{StaticResource cellStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  BorderThickness="0" Style="{Binding Path = RouteType, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="RouteButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="RoutesDeleteRow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+            
+
+
+
+
+
+        </DataGrid>
+
+       
+        <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="RoutesPagePanel">
+
+
+            <Button Click="PreviousPage" Tag="3" ToolTip="Predchádzajúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+            <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+            <TextBlock Height="18" Text="0" Name="RoutesCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+            <TextBlock Height="18" Text="0" Name="RoutesMaxPages" Margin="2,0,0,0" FontSize="16"/>
+            <Button Click="NextPage" Tag="3" ToolTip="Nasledujúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+
+        </StackPanel>
+    
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="dataGridTrips" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="routeID" Binding="{Binding TripsRouteid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="serviceID" Binding="{Binding TripsServiceid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="tripID" Binding="{Binding TripsTripid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Cieľ spoja" Binding="{Binding TripsHeadsign }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn Header="Krátky názov" Binding="{Binding TripsShortName }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+
+
+                    <DataGridTextColumn Header="Smer spoja" Binding="{Binding TripsDirectionid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="TripsDeleteRow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+            </DataGrid.Columns>
+
+
+
+
+
+        </DataGrid>
+            <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="TripsPagePanel">
+
+
+                <Button Click="PreviousPage" Tag="4" ToolTip="Predchádzajúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+                <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+                <TextBlock Height="18" Text="0" Name="TripsCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="0" Name="TripsMaxPages" Margin="2,0,0,0" FontSize="16"/>
+                <Button Click="NextPage" Tag="4" ToolTip="Nasledujúca stránka." HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="dataGridStops" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="stopID" Binding="{Binding Stopsid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Názov zastávky" Binding="{Binding StopsName }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Zóna" Binding="{Binding StopsZoneid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="StopsDeleteRow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="StopPagePanel">
+
+
+                <Button Click="PreviousPage" Tag="5" ToolTip="Predchádzajúca zastávka." HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+                <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+                <TextBlock Height="18" Text="0" Name="StopCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="0" Name="StopMaxPages" Margin="2,0,0,0" FontSize="16"/>
+                <Button Click="NextPage" Tag="5" ToolTip="Nasledujúca zastávka." HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="dataGridStopTimes" HorizontalAlignment="Left" Margin="37,72,0,0" IsManipulationEnabled="True"  VerticalAlignment="Top"
+                  AutoGenerateColumns="False" FontSize="14"  Visibility="Hidden" 
+                  CanUserSortColumns = "False" CanUserAddRows = "False" SelectionUnit="Cell" RowHeaderWidth="0"
+                  CanUserResizeRows = "False"
+            CanUserResizeColumns = "False" RowHeight="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="TripID" Binding="{Binding StopTimesTripid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+
+
+                    <DataGridTextColumn Header="StopID" Binding="{Binding StopTimesStopsid }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Poradie" Binding="{Binding StopTimesSequence }" CellStyle="{StaticResource DataGridContentCellCentering}">
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Príchod" MinWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                    <TextBlock Text="{Binding StopTimesArrivalTimeHours}"/>
+                                    <TextBlock Text=":"/>
+                                    <TextBlock Text="{Binding StopTimesArrivalTimeMinutes}"/>
+                                    <TextBlock Text=":"/>
+                                    <TextBlock Text="{Binding StopTimesArrivalTimeSeconds}"/>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+
+
+                                    <TextBox Text= "{Binding StopTimesArrivalTimeHours}" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox" />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+
+                                        <Button Name="HoursPlus" Click="StopTimesHoursButton" Content="+" />
+                                        <Button Name="HoursMinus" Click="StopTimesHoursButton"  Content="-"/>
+
+
+                                    </StackPanel>
+                                    <Separator Opacity="0" Width="5"/>
+
+                                    <TextBox Text= "{Binding StopTimesArrivalTimeMinutes}" VerticalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox"  />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Name="MinutesPlus" Click="StopTimesMinutesButton" Content="+" />
+                                        <Button Name="MinutesMinus" Click="StopTimesMinutesButton"  Content="-"/>
+                                    </StackPanel>
+                                    <Separator Opacity="0" Width="5"/>
+                                    <TextBox Text= "{Binding StopTimesArrivalTimeSeconds}"  VerticalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox"   />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Name="SecondsPlus" Click="StopTimesSecondsButton" Content="+" />
+                                        <Button Name="SecondsMinus" Click="StopTimesSecondsButton"  Content="-"/>
+                                    </StackPanel>
+
+
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn Header="Odchod" MinWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                    <TextBlock Text="{Binding StopTimesDepartureTimeHours}"/>
+                                    <TextBlock Text=":"/>
+                                    <TextBlock Text="{Binding StopTimesDepartureTimeMinutes}"/>
+                                    <TextBlock Text=":"/>
+                                    <TextBlock Text="{Binding StopTimesDepartureTimeSeconds}"/>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+
+
+                                    <TextBox Text= "{Binding StopTimesDepartureTimeHours}" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox" />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+
+                                        <Button Name="HoursPlus" Click="StopTimesHoursButton" Content="+" />
+                                        <Button Name="HoursMinus" Click="StopTimesHoursButton"  Content="-"/>
+
+
+
+                                    </StackPanel>
+                                    <Separator Opacity="0" Width="5"/>
+
+                                    <TextBox Text= "{Binding StopTimesDepartureTimeMinutes}" VerticalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox"  />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Name="MinutesPlus" Click="StopTimesMinutesButton" Content="+" />
+                                        <Button Name="MinutesMinus" Click="StopTimesMinutesButton"  Content="-"/>
+                                    </StackPanel>
+                                    <Separator Opacity="0" Width="5"/>
+                                    <TextBox Text= "{Binding StopTimesDepartureTimeSeconds}"  VerticalAlignment="Center" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Keyboard.PreviewKeyDown="SpaceBarTextBox"   />
+                                    <Separator Opacity="0" Width="5"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Name="SecondsPlus" Click="StopTimesSecondsButton" Content="+" />
+                                        <Button Name="SecondsMinus" Click="StopTimesSecondsButton"  Content="-"/>
+                                    </StackPanel>
+
+
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                
+
+
+
+                    <DataGridTemplateColumn Width="50" CellStyle="{StaticResource cellStyleDelete}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button BorderThickness="0" Style="{StaticResource CrossImageStyle}" Tag="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}}" Click="StopTimesDeleteRow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
+            <StackPanel Orientation="Horizontal" Background="{x:Null}" Margin="0,10,0,0" Visibility="Hidden" Name="StopTimesPagePanel">
+
+
+                <Button Click="PreviousPage" ToolTip="Predchádzajúca stránka." Tag="6"  HorizontalAlignment="Right" Width="30" Height="30" Margin="20,0,0,0" Style="{StaticResource PreviousPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Left.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+                <TextBlock Width="52" Height="18" Text="Strana:  " FontSize="16" />
+                <TextBlock Height="18" Text="0" Name="StopTimesCurrentPage" Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="z"  Margin="2,0,0,0" FontSize="16"/>
+                <TextBlock Height="18" Text="0" Name="StopTimesMaxPages" Margin="2,0,0,0" FontSize="16"/>
+                <Button Click="NextPage" ToolTip="Nasledujúca stránka." Tag="6" HorizontalAlignment="Right" Width="30" Height="30" Margin="2,0,0,0" Style="{StaticResource NextPageImageStyle}" BorderBrush="{x:Null}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/GTFSApplication;component/Resources/Right.png" Height="21" Width="20" Stretch="Fill" />
+                    </StackPanel>
+                </Button>
+
+
+            </StackPanel>
+
+        </StackPanel>
+
+
+
+
+    </Grid>
+
+
+</Window>
+
+    

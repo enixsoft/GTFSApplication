@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="WpfApplication2.App">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsvRow">
+    <Position X="3" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>CSV\Reader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsvFileReader">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>CSV\Reader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsvFileWriter">
+    <Position X="0.5" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>CSV\Reader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFSApplication.DatabaseManager" BaseTypeListCollapsed="true">
+    <Position X="29" Y="0.5" Width="3.75" />
+    <NestedTypes>
+      <Class Name="GTFSApplication.DatabaseManager.DatagridFilesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DatabaseManager.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.DatabaseManager.DatagridDatabaseValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DatabaseManager.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.DatabaseManager.DataGridDatabaseClass" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DatabaseManager.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gCAkUQAAAgAAIAAABwFAwAAAgAAQIFABAG2AAAIKqAI=</HashCode>
+      <FileName>DatabaseManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GTFSApplication.EditorClass">
+    <Position X="33" Y="0.5" Width="8" />
+    <NestedTypes>
+      <Class Name="GTFSApplication.EditorClass.AgencyValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.CalendarValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.CalendarDatesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.RoutesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.TripsValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.StopsValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.EditorClass.StopTimesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EditorClass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>F4UCCgQ0wLOQgIgCSDAKEgCigNABUDUUgZAAQASBYHA=</HashCode>
+      <FileName>EditorClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFSApplication.EditorWindow" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>pQAKCABgiKtCgAAARBACEBEygRAgkCBE0CAAgGALA5A=</HashCode>
+      <FileName>EditorWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GTFSApplication.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="0.5" Width="4" />
+    <NestedTypes>
+      <Class Name="GTFSApplication.MainWindow.StopTextboxModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.MainWindow.ResultValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.MainWindow.TripResultValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.MainWindow.ResultFromStopTimesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="GTFSApplication.MainWindow.TotalResultFromStopTimesValues" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>hEAjARCUAXAIBICAICAgABkAAQgAIEQgEwwAAwIoxAk=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GTFSApplication.TripWindow" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TripWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GTFS.Entities.Agency">
+    <Position X="0.5" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAxAhAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Entity\Agency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.Calendar">
+    <Position X="3" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAhAAAAAAAACAAAAAAAAAAACAAAAAAAAEAAQABA=</HashCode>
+      <FileName>Entity\Calendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.CalendarDates">
+    <Position X="5.75" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABEAAAAAAAAAIAAQAAAAAAAAAAIAAAAAAAAAAE=</HashCode>
+      <FileName>Entity\CalendarDates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.Routes">
+    <Position X="11.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABCBAAAAAIAAAAAAAAAAAAIAAAACAEAAAgAAAA=</HashCode>
+      <FileName>Entity\Routes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.Stops">
+    <Position X="8.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEBABAAAAgAAAAAAAIAEAAAAAAEIAAAAAAAAAAA=</HashCode>
+      <FileName>Entity\Stops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.StopTimes">
+    <Position X="16.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABABARAAAAYAAAAAAAAAEAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entity\StopTimes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFS.Entities.Trips">
+    <Position X="13.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAABAFAAAAACAAIAgAAAAAAAAAAAAABAgAAAAAAA=</HashCode>
+      <FileName>Entity\Trips.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTFSApplication.Properties.Settings">
+    <Position X="6.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,29 @@
+﻿<Window x:Class="GTFSApplication.TripWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTFSApplication"
+        mc:Ignorable="d"
+        Title="Detaily spoja" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock Name="Trip" Text="Dráha spoja " FontSize="30" FontFamily="Segoe UI Light" Margin="25,0,0,463" HorizontalAlignment="Left" Width="422"></TextBlock>
+
+        <DataGrid x:Name="dataGridResult" HorizontalAlignment="Left" Margin="25,60,0,0" IsManipulationEnabled="False"
+                  AutoGenerateColumns="False"  FontSize="20" Visibility="Visible"  RowHeight="40"  SelectionUnit="FullRow"
+                  CanUserSortColumns = "False" CanUserAddRows = "False" RowHeaderWidth="0" 
+                  CanUserResizeRows = "False" GridLinesVisibility="Horizontal" MaxHeight="310" MinWidth="400"
+            CanUserResizeColumns = "True" VerticalAlignment="Top" >
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Binding="{Binding resultNumber}" IsReadOnly="True" MaxWidth="30"/>
+                <DataGridTextColumn Binding="{Binding resultStop}" IsReadOnly="True" Header="Zástavka" MinWidth="300"/>
+                <DataGridTextColumn Binding="{Binding resultArrivalTime}" IsReadOnly="True"  MinWidth="100" Header="Príchod "/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Window>
