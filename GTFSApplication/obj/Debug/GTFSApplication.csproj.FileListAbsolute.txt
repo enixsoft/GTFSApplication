@@ -31,3 +31,39 @@ C:\Users\Martin\Documents\Visual Studio 2015\Projects\GTFSApplication\GTFSApplic
 C:\Users\Martin\Documents\Visual Studio 2015\Projects\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.csproj.GenerateResource.Cache
 C:\Users\Martin\Documents\Visual Studio 2015\Projects\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.exe
 C:\Users\Martin\Documents\Visual Studio 2015\Projects\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.pdb
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\GTFSApplication.exe.config
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\GTFSApplication.exe
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\GTFSApplication.pdb
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\EntityFramework.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\EntityFramework.SqlServer.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Data.SQLite.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Data.SQLite.EF6.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Data.SQLite.Linq.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\WPFTextBoxAutoComplete.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\WPFToolkit.dll
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\EntityFramework.xml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\EntityFramework.SqlServer.xml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Data.SQLite.xml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\bin\Debug\System.Data.SQLite.dll.config
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.csprojResolveAssemblyReference.cache
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\EditorWindow.g.cs
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\MainWindow.g.cs
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\DatabaseManager.g.cs
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\TripWindow.g.cs
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\App.g.cs
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication_MarkupCompile.cache
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication_MarkupCompile.lref
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\App.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\EditorWindow.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\MainWindow.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\Styles.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\DatabaseManager.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\TripWindow.baml
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.g.resources
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.Properties.Resources.resources
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.csproj.GenerateResource.Cache
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.csproj.CoreCompileInputs.cache
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.exe
+D:\DesktopMartin\Vysoká škola 2014-2017\odovzdanie-fuck it\Priloha A - zdojový kód aplikácie\GTFSApplication\GTFSApplication\GTFSApplication\obj\Debug\GTFSApplication.pdb
