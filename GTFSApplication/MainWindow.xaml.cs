@@ -519,9 +519,12 @@ namespace GTFSApplication
                     }
                     else
                     {
-                        DTDateFromPicker = DateTime.ParseExact(searchDateFromPicker,
-                                      "dd/MM/yyyy",
-                                       null);
+                    // DTDateFromPicker = DateTime.ParseExact(searchDateFromPicker,
+                    //             "dd/MM/yyyy",
+                    //            null);
+                    DTDateFromPicker = DateTime.Parse(searchDateFromPicker);
+
+
                     }
 
 

@@ -6,6 +6,7 @@
         xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:local="clr-namespace:GTFSApplication"
+        xml:lang="sk-SK"
         mc:Ignorable="d"
         Title="Hlavné okno" Height="774" Width="1100" >
     <Grid >
@@ -53,7 +54,24 @@
 
                 <TextBlock Text="Dátum a čas" Margin="20,0,0,10" FontSize="24" HorizontalAlignment="Left" Width="195" FontFamily="Segoe UI Light"/>
 
-                <DatePicker Width="266" FontSize="24" x:Name="searchDatePicker" Margin="0,0,0,10" Height="48" Style="{DynamicResource DatePickerStyle1}" />
+                <DatePicker Width="266" FontSize="24" x:Name="searchDatePicker" Margin="0,0,0,10" Height="48" Style="{DynamicResource DatePickerStyle1}" FirstDayOfWeek="Monday">
+                    <!--
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox"
+                                                 Text="{Binding Path=SelectedDate, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
+                                                        StringFormat={x:Static local:App.DateFormat}}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                    -->
+                </DatePicker>
                 <TextBox x:Name="searchTimeTextBox" FontSize="32" Width="90" Height="48" FontFamily="Segoe UI Light" Margin="0,0,0,11" Style="{StaticResource TextBoxStyleWatermark}" Tag="Teraz" 
                          PreviewTextInput="NumberValidationTextBox" MaxLength="5" Keyboard.PreviewKeyDown="SpaceBarTextBox" TextChanged="OnTextChanged" LostFocus="searchTimeTextBox_LostFocus" Cursor="IBeam"  />                
                 <StackPanel Orientation="Vertical" Width="45"/>

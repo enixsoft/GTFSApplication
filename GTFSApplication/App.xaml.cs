@@ -6,16 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApplication2
+namespace GTFSApplication
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
-       
+        public static string DateFormat = "dd.MM.yyyy";
     }
 
-
+   
 
 }
